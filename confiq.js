@@ -2,8 +2,8 @@ const CONFIG = {
     // ===== PERSONAL =====
     name: "𝐆𝐄𝐓𝐎",
     tagline: "Telegram Bot Fleet Master",
-    bio: "#𝐃ᴏɴᴛ_𝐖ᴏʀʀʏ_𝐖ᴇ_𝐀ʀᴇ_𝐓ʜᴇ_𝐒𝐭𝐫𝐨𝐧𝐠𝐞𝐬𝐭_",
-    profileImage: "https://i.ibb.co/8gYwLWmx/file-00000000be0c81f583e8031a6233b074.png", // apni photo ka link
+    bio: "#𝐃ᴏɴᴛ_𝐖ᴏʀʀʏ_𝐖ᴇ_𝐀ʀᴇ_𝐓𝐡𝐞_𝐒𝐭𝐫𝐨𝐧𝐠𝐞𝐬𝐭_",
+    profileImage: "https://i.ibb.co/8gYwLWmx/file-00000000be0c81f583e8031a6233b074.png",
     status: "online",
 
     // ===== SOCIAL =====
@@ -34,8 +34,8 @@ const CONFIG = {
     ],
 
     // ===== SUDO REQUEST =====
-    requestBotToken: "8982693583:AAF-mal_M32wqr_gsbDChEU7o30-3yngW6w",
-    requestBotChatId: "8808478782",
+    requestBotToken: "YOUR_BOT_TOKEN_HERE",
+    requestBotChatId: "YOUR_CHAT_ID_HERE",
 
     // ===== THEME SONG =====
     themeSong: "https://cdn.pixabay.com/download/audio/2022/10/25/audio_9e3eb83c05.mp3",
