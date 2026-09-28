@@ -3,7 +3,7 @@ const CONFIG = {
     name: "𝐆𝐄𝐓𝐎",
     tagline: "Telegram Bot Fleet Master",
     bio: "#𝐃ᴏɴᴛ_𝐖ᴏʀʀʏ_𝐖ᴇ_𝐀ʀᴇ_𝐓ʜᴇ_𝐒𝐭𝐫𝐨𝐧𝐠𝐞𝐬𝐭_",
-    profileImage: "https://i.ibb.co/yourphoto.jpg", // apni photo ka link
+    profileImage: "https://i.ibb.co/8gYwLWmx/file-00000000be0c81f583e8031a6233b074.png", // apni photo ka link
     status: "online",
 
     // ===== SOCIAL =====
