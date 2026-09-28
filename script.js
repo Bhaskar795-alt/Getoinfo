@@ -1,597 +1,441 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const $ = id =>
-        document.getElementById(id);
+  /* =========================
+     BOT MATRIX
+  ========================= */
 
+  const botGrid = document.getElementById("botGrid");
 
-    /* =========================
-       PROFILE
-    ========================= */
+  const totalBots = document.getElementById("totalBots");
+  const activeBots = document.getElementById("activeBots");
 
-    $("profileImage").src =
-        CONFIG.profile.image;
+  const bots = CONFIG.bots || [];
 
-    $("profileName").textContent =
-        CONFIG.profile.name;
+  const active = bots.filter(
+    bot => bot.status === "active"
+  ).length;
 
-    $("profileUsername").textContent =
-        CONFIG.profile.username;
+  totalBots.textContent = bots.length;
+  activeBots.textContent = active;
 
-    $("profileBio").textContent =
-        CONFIG.profile.bio;
+  botGrid.innerHTML = "";
 
-    $("profileStatus").textContent =
-        CONFIG.profile.status;
+  bots.forEach((bot, index) => {
 
-    $("footerName").textContent =
-        CONFIG.profile.name;
+    const card = document.createElement("div");
 
+    card.className = "bot-card";
 
-    /* =========================
-       SOCIAL
-    ========================= */
+    card.innerHTML = `
+      <div class="bot-number">
+        UNIT ${String(index + 1).padStart(2, "0")}
+      </div>
 
-    $("instagramLink").href =
-        CONFIG.profile.instagram;
+      <h3>${escapeHTML(bot.name)}</h3>
 
-    $("telegramLink").href =
-        CONFIG.profile.telegram;
+      <div class="bot-status">
+        ${bot.status === "active" ? "ACTIVE / ONLINE" : "INACTIVE"}
+      </div>
 
-    $("communityLink").href =
-        CONFIG.links.community;
+      <a
+        class="bot-open"
+        href="${bot.url}"
+        target="_blank"
+        rel="noopener"
+      >
+        OPEN BOT ↗
+      </a>
+    `;
 
+    botGrid.appendChild(card);
 
-    /* =========================
-       IMPORTANT LINKS
-    ========================= */
+  });
 
-    $("communityCard").href =
-        CONFIG.links.community;
 
-    $("sudoGroupCard").href =
-        CONFIG.links.sudoGroup;
+  /* =========================
+     YEAR
+  ========================= */
 
-    $("chatGroupCard").href =
-        CONFIG.links.chattingGroup;
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
 
-    $("fontBotCard").href =
-        CONFIG.links.fontBot;
 
-    $("managementBotCard").href =
-        CONFIG.links.managementBot;
+  /* =========================
+     MUSIC AUTOPLAY
+  ========================= */
 
+  const audio = document.getElementById("themeSong");
 
-    /* =========================
-       YEAR
-    ========================= */
+  audio.src = CONFIG.themeSong;
+  audio.loop = true;
+  audio.volume = 0.35;
 
-    $("year").textContent =
-        new Date().getFullYear();
+  let musicStarted = false;
 
+  async function startMusic() {
 
-    /* =========================
-       BOT STATS
-    ========================= */
+    if (musicStarted) return;
 
-    const total =
-        CONFIG.bots.length;
+    try {
 
-    const active =
-        CONFIG.bots.filter(
-            bot =>
-                bot.status.toLowerCase() === "active"
-        ).length;
+      await audio.play();
 
-    const inactive =
-        total - active;
+      musicStarted = true;
 
+    } catch (error) {
 
-    $("totalBots").textContent =
-        total;
+      /*
+        Browser autoplay policy may block
+        audible autoplay.
 
-    $("activeBots").textContent =
-        active;
-
-    $("inactiveBots").textContent =
-        inactive;
-
-
-    /* =========================
-       BOT LIST
-    ========================= */
-
-    const botList =
-        $("botList");
-
-
-    CONFIG.bots.forEach(
-        (bot, index) => {
-
-            const active =
-                bot.status.toLowerCase() ===
-                "active";
-
-
-            const card =
-                document.createElement("div");
-
-
-            card.className =
-                "bot-card";
-
-
-            card.innerHTML = `
-
-                <div class="bot-number">
-                    ${String(index + 1).padStart(2, "0")}
-                </div>
-
-                <div class="bot-info">
-
-                    <a
-                        href="${escapeAttribute(bot.url)}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        ${escapeHTML(bot.name)}
-                    </a>
-
-                    <div
-                        class="bot-status ${
-                            active
-                                ? "active"
-                                : "inactive"
-                        }"
-                    >
-                        ${
-                            active
-                                ? "ACTIVE"
-                                : "INACTIVE"
-                        }
-                    </div>
-
-                </div>
-            `;
-
-
-            botList.appendChild(card);
-
-        }
-    );
-
-
-    /* =========================
-       MUSIC
-    ========================= */
-
-    setupMusic();
-
-
-    /* =========================
-       SUDO
-    ========================= */
-
-    setupSudoForm();
-
-});
-
-
-/* =========================
-   SAFE HTML
-========================= */
-
-function escapeHTML(value) {
-
-    return String(value)
-
-        .replaceAll("&", "&amp;")
-
-        .replaceAll("<", "&lt;")
-
-        .replaceAll(">", "&gt;")
-
-        .replaceAll('"', "&quot;")
-
-        .replaceAll("'", "&#039;");
-}
-
-
-function escapeAttribute(value) {
-
-    return escapeHTML(value);
-
-}
-
-
-/* =========================
-   MUSIC
-========================= */
-
-function setupMusic() {
-
-    const audio =
-        document.getElementById(
-            "themeSong"
-        );
-
-    const button =
-        document.getElementById(
-            "musicButton"
-        );
-
-    const icon =
-        document.getElementById(
-            "musicIcon"
-        );
-
-    const text =
-        document.getElementById(
-            "musicText"
-        );
-
-
-    if (!audio || !button)
-        return;
-
-
-    audio.src =
-        CONFIG.themeSong;
-
-    audio.loop =
-        true;
-
-    audio.volume =
-        0.35;
-
-
-    function updateUI(
-        playing
-    ) {
-
-        if (playing) {
-
-            button.classList.add(
-                "playing"
-            );
-
-            icon.textContent =
-                "♫";
-
-            text.textContent =
-                "Playing";
-
-        } else {
-
-            button.classList.remove(
-                "playing"
-            );
-
-            icon.textContent =
-                "▶";
-
-            text.textContent =
-                "Music";
-        }
+        We retry on first user interaction.
+      */
 
     }
 
+  }
 
-    async function playMusic() {
+  startMusic();
+
+  [
+    "click",
+    "touchstart",
+    "keydown",
+    "pointerdown"
+  ].forEach(eventName => {
+
+    window.addEventListener(
+      eventName,
+      startMusic,
+      {
+        once: true,
+        passive: true
+      }
+    );
+
+  });
+
+
+  /* =========================
+     CLI
+  ========================= */
+
+  const terminalInput =
+    document.getElementById("terminalInput");
+
+  const terminalOutput =
+    document.getElementById("terminalOutput");
+
+  const runCommand =
+    document.getElementById("runCommand");
+
+  const clearTerminal =
+    document.getElementById("clearTerminal");
+
+
+  function printCommand(command) {
+
+    const line = document.createElement("div");
+
+    line.className = "cmd";
+
+    line.textContent =
+      `root@geto:~$ ${command}`;
+
+    terminalOutput.appendChild(line);
+
+  }
+
+
+  function printAnswer(answer) {
+
+    const line = document.createElement("div");
+
+    line.className = "answer";
+
+    line.innerHTML = answer;
+
+    terminalOutput.appendChild(line);
+
+  }
+
+
+  function runCLI() {
+
+    const command =
+      terminalInput.value.trim().toLowerCase();
+
+    if (!command) return;
+
+    printCommand(command);
+
+    terminalInput.value = "";
+
+
+    if (command === "help") {
+
+      printAnswer(`
+        Available commands:<br>
+        • bots — show bot fleet<br>
+        • sudo — sudo group<br>
+        • telegram — open Telegram<br>
+        • instagram — open Instagram<br>
+        • community — main community<br>
+        • status — system status<br>
+        • clear — clear terminal
+      `);
+
+    }
+
+    else if (command === "bots") {
+
+      const list = bots
+        .map(
+          (bot, i) =>
+            `${i + 1}. ${escapeHTML(bot.name)} — ${bot.status.toUpperCase()}`
+        )
+        .join("<br>");
+
+      printAnswer(list);
+
+    }
+
+    else if (command === "sudo") {
+
+      printAnswer(
+        `SUDO GROUP → <a href="${CONFIG.sudoGroup}" target="_blank">OPEN GROUP ↗</a>`
+      );
+
+    }
+
+    else if (command === "telegram") {
+
+      printAnswer(
+        `TELEGRAM → <a href="${CONFIG.telegram}" target="_blank">OPEN PROFILE ↗</a>`
+      );
+
+    }
+
+    else if (command === "instagram") {
+
+      printAnswer(
+        `INSTAGRAM → <a href="${CONFIG.instagram}" target="_blank">OPEN PROFILE ↗</a>`
+      );
+
+    }
+
+    else if (command === "community") {
+
+      printAnswer(
+        `COMMUNITY → <a href="${CONFIG.mainCommunity}" target="_blank">JOIN ↗</a>`
+      );
+
+    }
+
+    else if (command === "status") {
+
+      printAnswer(
+        "GETO CORE: <span style='color:#00ff9d'>ONLINE</span><br>" +
+        `BOT UNITS: ${bots.length}<br>` +
+        `ACTIVE: ${active}`
+      );
+
+    }
+
+    else if (command === "clear") {
+
+      terminalOutput.innerHTML = "";
+
+    }
+
+    else {
+
+      printAnswer(
+        `Command not found: <b>${escapeHTML(command)}</b><br>` +
+        `Type <b>help</b> to see available commands.`
+      );
+
+    }
+
+    terminalOutput.scrollTop =
+      terminalOutput.scrollHeight;
+
+  }
+
+
+  runCommand.addEventListener(
+    "click",
+    runCLI
+  );
+
+
+  terminalInput.addEventListener(
+    "keydown",
+    event => {
+
+      if (event.key === "Enter") {
+        runCLI();
+      }
+
+    }
+  );
+
+
+  clearTerminal.addEventListener(
+    "click",
+    () => {
+
+      terminalOutput.innerHTML = "";
+
+    }
+  );
+
+
+  /* =========================
+     COPY BUTTON
+  ========================= */
+
+  document.querySelectorAll(".copy-btn")
+    .forEach(button => {
+
+      button.addEventListener("click", async () => {
+
+        const text =
+          button.dataset.copy;
 
         try {
 
-            await audio.play();
+          await navigator.clipboard.writeText(text);
 
-            updateUI(true);
+          const oldText =
+            button.textContent;
+
+          button.textContent = "COPIED ✓";
+
+          setTimeout(() => {
+            button.textContent = oldText;
+          }, 1500);
 
         } catch {
 
-            /*
-             * Browser autoplay blocked.
-             */
-            updateUI(false);
+          button.textContent = "COPY FAILED";
 
         }
+
+      });
+
+    });
+
+
+  /* =========================
+     SUDO REQUEST
+  ========================= */
+
+  const sudoForm =
+    document.getElementById("sudoForm");
+
+  const sudoMessage =
+    document.getElementById("sudoMessage");
+
+
+  sudoForm.addEventListener(
+    "submit",
+    async event => {
+
+      event.preventDefault();
+
+      const name =
+        document.getElementById("sudoName")
+          .value
+          .trim();
+
+      const username =
+        document.getElementById("sudoUsername")
+          .value
+          .trim();
+
+      const reason =
+        document.getElementById("sudoReason")
+          .value
+          .trim();
+
+      const website =
+        document.getElementById("website")
+          .value
+          .trim();
+
+
+      sudoMessage.textContent =
+        "TRANSMITTING REQUEST...";
+
+
+      try {
+
+        const response =
+          await fetch(
+            CONFIG.sudoApi,
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                name,
+                username,
+                reason,
+                website
+              })
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+          throw new Error(
+            data.error ||
+            "Request failed"
+          );
+        }
+
+
+        sudoMessage.textContent =
+          "✓ REQUEST SENT SUCCESSFULLY.";
+
+        sudoForm.reset();
+
+
+      } catch (error) {
+
+        sudoMessage.textContent =
+          "✕ " +
+          (error.message ||
+            "Unable to send request.");
+
+      }
 
     }
+  );
 
 
-    button.addEventListener(
-        "click",
-        async () => {
+  /* =========================
+     ESCAPE HTML
+  ========================= */
 
-            if (audio.paused) {
+  function escapeHTML(value) {
 
-                await playMusic();
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
 
-            } else {
+  }
 
-                audio.pause();
-
-                updateUI(false);
-
-            }
-
-        }
-    );
-
-
-    /*
-     * Retry after first interaction.
-     */
-
-    const unlock =
-        () => {
-
-            if (audio.paused) {
-
-                playMusic();
-
-            }
-
-        };
-
-
-    window.addEventListener(
-        "click",
-        unlock,
-        { once: true }
-    );
-
-    window.addEventListener(
-        "touchstart",
-        unlock,
-        {
-            once: true,
-            passive: true
-        }
-    );
-
-    window.addEventListener(
-        "keydown",
-        unlock,
-        { once: true }
-    );
-
-
-    /*
-     * Initial autoplay attempt.
-     */
-
-    playMusic();
-
-
-    /*
-     * Resume when page becomes visible.
-     */
-
-    document.addEventListener(
-        "visibilitychange",
-        () => {
-
-            if (
-                document.visibilityState ===
-                "visible"
-            ) {
-
-                if (audio.paused) {
-
-                    playMusic();
-
-                }
-
-            }
-
-        }
-    );
-
-
-    audio.addEventListener(
-        "play",
-        () => updateUI(true)
-    );
-
-    audio.addEventListener(
-        "pause",
-        () => updateUI(false)
-    );
-
-}
-
-
-/* =========================
-   SUDO FORM
-========================= */
-
-function setupSudoForm() {
-
-    const form =
-        document.getElementById(
-            "sudoForm"
-        );
-
-    if (!form)
-        return;
-
-
-    const button =
-        document.getElementById(
-            "sudoSubmit"
-        );
-
-    const message =
-        document.getElementById(
-            "formMessage"
-        );
-
-
-    form.addEventListener(
-        "submit",
-        async event => {
-
-            event.preventDefault();
-
-
-            message.className =
-                "form-message";
-
-            message.textContent =
-                "";
-
-
-            const data =
-                new FormData(form);
-
-
-            const name =
-                String(
-                    data.get("name") || ""
-                ).trim();
-
-
-            const username =
-                String(
-                    data.get("username") || ""
-                ).trim();
-
-
-            const reason =
-                String(
-                    data.get("reason") || ""
-                ).trim();
-
-
-            const website =
-                String(
-                    data.get("website") || ""
-                ).trim();
-
-
-            /*
-             * Honeypot
-             */
-
-            if (website) {
-
-                form.reset();
-
-                message.className =
-                    "form-message success";
-
-                message.textContent =
-                    "Request sent.";
-
-                return;
-
-            }
-
-
-            if (
-                !name ||
-                !username ||
-                !reason
-            ) {
-
-                message.className =
-                    "form-message error";
-
-                message.textContent =
-                    "Please fill all fields.";
-
-                return;
-
-            }
-
-
-            button.disabled =
-                true;
-
-
-            button.querySelector(
-                "span:first-child"
-            ).textContent =
-                "Sending...";
-
-
-            try {
-
-                const response =
-                    await fetch(
-                        CONFIG.sudoApi,
-                        {
-
-                            method: "POST",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body:
-                                JSON.stringify({
-                                    name,
-                                    username,
-                                    reason,
-                                    website
-                                })
-
-                        }
-                    );
-
-
-                const result =
-                    await response.json()
-                        .catch(
-                            () => ({})
-                        );
-
-
-                if (!response.ok) {
-
-                    throw new Error(
-                        result.message ||
-                        "Request failed."
-                    );
-
-                }
-
-
-                message.className =
-                    "form-message success";
-
-                message.textContent =
-                    "✅ Sudo request sent successfully!";
-
-
-                form.reset();
-
-
-            } catch (error) {
-
-                console.error(
-                    error
-                );
-
-
-                message.className =
-                    "form-message error";
-
-                message.textContent =
-                    "❌ Could not send request. Try again later.";
-
-            }
-
-
-            button.disabled =
-                false;
-
-
-            button.querySelector(
-                "span:first-child"
-            ).textContent =
-                "Send Sudo Request";
-
-        }
-    );
-
-                  }
+});
