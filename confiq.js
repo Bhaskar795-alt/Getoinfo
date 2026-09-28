@@ -1,183 +1,102 @@
 const CONFIG = {
 
-    profile: {
+  name: "ᯓ꯭𓆰꯭𝅃꯭𝐆𝐄𝐓𝐎 -֟፝…𓆪᭄ꪾ",
 
-        name:
-            "ᯓ꯭𓆰꯭𝅃꯭𝐆𝐄𝐓𝐎 -֟፝…𓆪᭄ꪾ",
+  username: "ll_DARK_GETO_ll",
 
-        username:
-            "ll_DARK_GETO_ll",
+  bio:
+    "#𝐃ᴏɴᴛ_𝐖ᴏʀʀʏ_𝐖ᴇ_𝐀ʀᴇ_𝐓ʜᴇ_𝐒ᴛʀᴏɴɢᴇsᴛ_\n" +
+    "#𝐃𝛆𝖋𝛂υℓ𝛕𝛆ɤ𝛅_𝛅𝛂ɤ𝛋𝛂ɤ",
 
-        bio:
-`#𝐃ᴏɴᴛ_𝐖ᴏʀʀʏ_𝐖ᴇ_𝐀ʀᴇ_𝐓ʜᴇ_𝐒ᴛʀᴏɴɢᴇsᴛ_
-#𝐃𝛆𝖋𝛂υℓ𝛕𝛆ɤ𝛅_𝛅𝛂ɤ𝛋𝛂ɤ`,
+  instagram:
+    "https://www.instagram.com/miyamura_kun07?stkn=azUxZWR1bHlqd3J5",
 
-        status:
-            "ONLINE",
+  telegram:
+    "https://t.me/ll_DARK_GETO_ll",
 
-        image:
-            "https://i.ibb.co/7xvx3Jdz/IMG-20260928-000955-270.jpg",
+  mainCommunity:
+    "https://t.me/+6q5QlKh32L9hNGI1",
 
-        instagram:
-            "https://www.instagram.com/miyamura_kun07?stkn=azUxZWR1bHlqd3J5",
+  sudoGroup:
+    "https://t.me/+orqD_xZvi5NlYzll",
 
-        telegram:
-            "https://t.me/ll_DARK_GETO_ll"
+  chattingGroup:
+    "https://t.me/+hp2bEQ4WBNBjMWQ1",
+
+  fontBot:
+    "https://t.me/CHANGE_THE_FONT_BOT",
+
+  managementBot:
+    "https://t.me/ll_SUPRRME_XD_ll_BOT",
+
+  themeSong:
+    "./music/theme.mp3",
+
+  sudoApi:
+    "https://YOUR-VERCEL-PROJECT.vercel.app/api/sudo-request",
+
+  bots: [
+
+    {
+      name: "@ll_SUPRRME_XD_1_ll_BOT",
+      url: "https://t.me/ll_SUPRRME_XD_1_ll_BOT",
+      status: "active"
     },
 
-
-    links: {
-
-        community:
-            "https://t.me/+6q5QlKh32L9hNGI1",
-
-        sudoGroup:
-            "https://t.me/+orqD_xZvi5NlYzll",
-
-        chattingGroup:
-            "https://t.me/+hp2bEQ4WBNBjMWQ1",
-
-        fontBot:
-            "https://t.me/CHANGE_THE_FONT_BOT",
-
-        managementBot:
-            "https://t.me/ll_SUPRRME_XD_ll_BOT"
+    {
+      name: "@ll_SUPRRME_XD_2_ll_BOT",
+      url: "https://t.me/ll_SUPRRME_XD_2_ll_BOT",
+      status: "active"
     },
 
+    {
+      name: "@ll_SUPRRME_XD_3_ll_BOT",
+      url: "https://t.me/ll_SUPRRME_XD_3_ll_BOT",
+      status: "active"
+    },
 
-    /*
-     * IMPORTANT:
-     * After Vercel deployment replace this URL.
-     */
+    {
+      name: "@ll_SUPRRME_XD_4_ll_BOT",
+      url: "https://t.me/ll_SUPRRME_XD_4_ll_BOT",
+      status: "active"
+    },
 
-    sudoApi:
-        "https://YOUR-VERCEL-PROJECT.vercel.app/api/sudo-request",
+    {
+      name: "@ll_SUPRRME_XD_5_ll_BOT",
+      url: "https://t.me/ll_SUPRRME_XD_5_ll_BOT",
+      status: "active"
+    },
 
+    {
+      name: "@ll_SUPRRME_XD_6_ll_BOT",
+      url: "https://t.me/ll_SUPRRME_XD_6_ll_BOT",
+      status: "active"
+    },
 
-    /*
-     * Theme music
-     */
+    {
+      name: "@ll_SUPRRME_XD_7_ll_BOT",
+      url: "https://t.me/ll_SUPRRME_XD_7_ll_BOT",
+      status: "active"
+    },
 
-    themeSong:
-        "https://cdn.pixabay.com/download/audio/2022/03/10/audio_5c4d1bbd67.mp3",
+    {
+      name: "@ll_SUPRRME_XD_8_l_l_BOT",
+      url: "https://t.me/ll_SUPRRME_XD_8_l_l_BOT",
+      status: "active"
+    },
 
+    {
+      name: "@ll_SUPRRME_XD_9_ll_BOT",
+      url: "https://t.me/ll_SUPRRME_XD_9_ll_BOT",
+      status: "active"
+    },
 
-    /*
-     * Bots
-     */
+    {
+      name: "@ll_SUPRRME_XD_10_ll_BOT",
+      url: "https://t.me/ll_SUPRRME_XD_10_ll_BOT",
+      status: "active"
+    }
 
-    bots: [
-
-        {
-            name:
-                "SUPRRME XD BOT 1",
-
-            url:
-                "https://t.me/ll_SUPRRME_XD_1_ll_BOT",
-
-            status:
-                "active"
-        },
-
-        {
-            name:
-                "SUPRRME XD BOT 2",
-
-            url:
-                "https://t.me/ll_SUPRRME_XD_2_ll_BOT",
-
-            status:
-                "active"
-        },
-
-        {
-            name:
-                "SUPRRME XD BOT 3",
-
-            url:
-                "https://t.me/ll_SUPRRME_XD_3_ll_BOT",
-
-            status:
-                "active"
-        },
-
-        {
-            name:
-                "SUPRRME XD BOT 4",
-
-            url:
-                "https://t.me/ll_SUPRRME_XD_4_ll_BOT",
-
-            status:
-                "active"
-        },
-
-        {
-            name:
-                "SUPRRME XD BOT 5",
-
-            url:
-                "https://t.me/ll_SUPRRME_XD_5_ll_BOT",
-
-            status:
-                "active"
-        },
-
-        {
-            name:
-                "SUPRRME XD BOT 6",
-
-            url:
-                "https://t.me/ll_SUPRRME_XD_6_ll_BOT",
-
-            status:
-                "active"
-        },
-
-        {
-            name:
-                "SUPRRME XD BOT 7",
-
-            url:
-                "https://t.me/ll_SUPRRME_XD_7_ll_BOT",
-
-            status:
-                "active"
-        },
-
-        {
-            name:
-                "SUPRRME XD BOT 8",
-
-            url:
-                "https://t.me/ll_SUPRRME_XD_8_l_l_BOT",
-
-            status:
-                "active"
-        },
-
-        {
-            name:
-                "SUPRRME XD BOT 9",
-
-            url:
-                "https://t.me/ll_SUPRRME_XD_9_ll_BOT",
-
-            status:
-                "active"
-        },
-
-        {
-            name:
-                "SUPRRME XD BOT 10",
-
-            url:
-                "https://t.me/ll_SUPRRME_XD_10_ll_BOT",
-
-            status:
-                "active"
-        }
-
-    ]
+  ]
 
 };
