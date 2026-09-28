@@ -1,177 +1,127 @@
-export default async function handler(
-    req,
-    res
-) {
+export default async function handler(req, res) {
 
-    /* =========================
-       CORS
-    ========================= */
+  const allowedOrigin =
+    process.env.ALLOWED_ORIGIN || "*";
 
-    const origin =
-        process.env.ALLOWED_ORIGIN || "*";
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    allowedOrigin
+  );
 
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "POST, OPTIONS"
+  );
 
-    res.setHeader(
-        "Access-Control-Allow-Origin",
-        origin
-    );
-
-    res.setHeader(
-        "Access-Control-Allow-Methods",
-        "POST, OPTIONS"
-    );
-
-    res.setHeader(
-        "Access-Control-Allow-Headers",
-        "Content-Type"
-    );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type"
+  );
 
 
-    /* =========================
-       OPTIONS
-    ========================= */
+  if (req.method === "OPTIONS") {
 
-    if (req.method === "OPTIONS") {
+    return res.status(204).end();
 
-        return res
-            .status(204)
-            .end();
-
-    }
+  }
 
 
-    /* =========================
-       ONLY POST
-    ========================= */
+  if (req.method !== "POST") {
 
-    if (req.method !== "POST") {
+    return res.status(405).json({
+      error: "Method not allowed"
+    });
 
-        return res
-            .status(405)
-            .json({
-                ok: false,
-                message:
-                    "Method not allowed."
-            });
+  }
+
+
+  try {
+
+    const token =
+      process.env.TELEGRAM_BOT_TOKEN;
+
+    const chatId =
+      process.env.TELEGRAM_CHAT_ID;
+
+
+    if (!token || !chatId) {
+
+      return res.status(500).json({
+        error:
+          "Telegram environment variables are missing."
+      });
 
     }
 
 
-    try {
-
-        const {
-            name,
-            username,
-            reason,
-            website
-        } = req.body || {};
+    const {
+      name,
+      username,
+      reason,
+      website
+    } = req.body || {};
 
 
-        /* =========================
-           HONEYPOT
-        ========================= */
+    /* Honeypot */
 
-        if (website) {
+    if (website) {
 
-            return res
-                .status(200)
-                .json({
-                    ok: true
-                });
+      return res.status(400).json({
+        error: "Invalid request."
+      });
 
-        }
+    }
 
 
-        /* =========================
-           ENVIRONMENT
-        ========================= */
+    if (!name || !username || !reason) {
 
-        const token =
-            process.env.TELEGRAM_BOT_TOKEN;
+      return res.status(400).json({
+        error:
+          "Name, username and reason are required."
+      });
 
-        const chatId =
-            process.env.TELEGRAM_CHAT_ID;
-
-
-        if (!token || !chatId) {
-
-            console.error(
-                "Telegram environment variables missing."
-            );
-
-            return res
-                .status(500)
-                .json({
-                    ok: false,
-                    message:
-                        "Server configuration error."
-                });
-
-        }
+    }
 
 
-        /* =========================
-           VALIDATION
-        ========================= */
+    if (name.length > 60) {
 
-        if (
-            typeof name !== "string" ||
-            typeof username !== "string" ||
-            typeof reason !== "string"
-        ) {
+      return res.status(400).json({
+        error: "Name is too long."
+      });
 
-            return res
-                .status(400)
-                .json({
-                    ok: false,
-                    message:
-                        "Invalid request."
-                });
-
-        }
+    }
 
 
-        const cleanName =
-            name
-                .trim()
-                .slice(0, 80);
+    if (username.length > 80) {
+
+      return res.status(400).json({
+        error: "Username is too long."
+      });
+
+    }
 
 
-        const cleanUsername =
-            username
-                .trim()
-                .slice(0, 64);
+    if (reason.length > 500) {
+
+      return res.status(400).json({
+        error: "Reason is too long."
+      });
+
+    }
 
 
-        const cleanReason =
-            reason
-                .trim()
-                .slice(0, 500);
+    const cleanName =
+      escapeTelegram(name);
+
+    const cleanUsername =
+      escapeTelegram(username);
+
+    const cleanReason =
+      escapeTelegram(reason);
 
 
-        if (
-            !cleanName ||
-            !cleanUsername ||
-            !cleanReason
-        ) {
-
-            return res
-                .status(400)
-                .json({
-                    ok: false,
-                    message:
-                        "All fields are required."
-                });
-
-        }
-
-
-        /* =========================
-           TELEGRAM MESSAGE
-        ========================= */
-
-        const text =
-`👑 NEW SUDO REQUEST
+    const message = `
+👑 NEW SUDO REQUEST
 
 ━━━━━━━━━━━━━━━━━━
 
@@ -186,84 +136,75 @@ ${cleanReason}
 
 ━━━━━━━━━━━━━━━━━━
 
-🌐 Sent from GETO Website`;
+🌐 Sent from GETO Website
+`;
 
 
-        /* =========================
-           TELEGRAM API
-        ========================= */
+    const telegramResponse =
+      await fetch(
+        `https://api.telegram.org/bot${token}/sendMessage`,
+        {
+          method: "POST",
 
-        const telegram =
-            await fetch(
-                `https://api.telegram.org/bot${token}/sendMessage`,
-                {
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
 
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:
-                        JSON.stringify({
-                            chat_id: chatId,
-                            text
-                        })
-
-                }
-            );
-
-
-        const result =
-            await telegram.json();
-
-
-        if (
-            !telegram.ok ||
-            !result.ok
-        ) {
-
-            console.error(
-                "Telegram error:",
-                result
-            );
-
-            return res
-                .status(502)
-                .json({
-                    ok: false,
-                    message:
-                        "Telegram delivery failed."
-                });
-
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: message
+          })
         }
+      );
 
 
-        return res
-            .status(200)
-            .json({
-                ok: true,
-                message:
-                    "Sudo request sent."
-            });
+    const telegramData =
+      await telegramResponse.json();
 
 
-    } catch (error) {
+    if (!telegramResponse.ok ||
+        !telegramData.ok) {
 
-        console.error(
-            error
-        );
+      console.error(
+        "Telegram API error:",
+        telegramData
+      );
 
-
-        return res
-            .status(500)
-            .json({
-                ok: false,
-                message:
-                    "Internal server error."
-            });
+      return res.status(502).json({
+        error:
+          "Telegram message could not be sent."
+      });
 
     }
+
+
+    return res.status(200).json({
+      success: true,
+      message:
+        "Sudo request sent successfully."
+    });
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    return res.status(500).json({
+      error:
+        "Internal server error."
+    });
+
+  }
+
+}
+
+
+function escapeTelegram(value) {
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 
 }
