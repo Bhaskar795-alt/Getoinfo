@@ -1,441 +1,186 @@
-document.addEventListener("DOMContentLoaded", () => {
+// ===== LOAD PROFILE =====
+document.getElementById('profileImg').src = CONFIG.profileImage;
+document.getElementById('statusText').textContent = CONFIG.status.toUpperCase();
+document.getElementById('footerName').textContent = CONFIG.name;
+document.getElementById('aboutBio').textContent = CONFIG.bio;
 
-  /* =========================
-     BOT MATRIX
-  ========================= */
+// ===== ABOUT LINKS =====
+document.getElementById('aboutTg').href = CONFIG.telegram;
+document.getElementById('aboutTg').textContent = CONFIG.telegramUsername;
+document.getElementById('aboutIg').href = CONFIG.instagram;
+document.getElementById('aboutIg').textContent = CONFIG.instagramHandle;
+document.getElementById('aboutCommunity').href = CONFIG.community;
 
-  const botGrid = document.getElementById("botGrid");
+// ===== CONTACT CARDS =====
+document.getElementById('cTg').href = CONFIG.telegram;
+document.getElementById('cTgVal').textContent = CONFIG.telegramUsername;
+document.getElementById('cGroup').href = CONFIG.sudoGroup;
+document.getElementById('cSupport').href = CONFIG.community;
+document.getElementById('cIg').href = CONFIG.instagram;
 
-  const totalBots = document.getElementById("totalBots");
-  const activeBots = document.getElementById("activeBots");
+// ===== BOTS LIST =====
+let active = 0, deactive = 0;
+const botsList = document.getElementById('botsList');
 
-  const bots = CONFIG.bots || [];
+CONFIG.bots.forEach((bot, i) => {
+    if (bot.status === 'active') active++;
+    else deactive++;
 
-  const active = bots.filter(
-    bot => bot.status === "active"
-  ).length;
+    const div = document.createElement('a');
+    div.href = bot.link;
+    div.target = '_blank';
+    div.className = `bot-item ${bot.status}`;
 
-  totalBots.textContent = bots.length;
-  activeBots.textContent = active;
+    const flagLabel = bot.flagship ? 'FLAGSHIP POWERHOUSE • ' : '';
+    const descLine = bot.desc ? `<span style="color:#888;font-size:0.75rem">${bot.desc}</span>` : '';
 
-  botGrid.innerHTML = "";
-
-  bots.forEach((bot, index) => {
-
-    const card = document.createElement("div");
-
-    card.className = "bot-card";
-
-    card.innerHTML = `
-      <div class="bot-number">
-        UNIT ${String(index + 1).padStart(2, "0")}
-      </div>
-
-      <h3>${escapeHTML(bot.name)}</h3>
-
-      <div class="bot-status">
-        ${bot.status === "active" ? "ACTIVE / ONLINE" : "INACTIVE"}
-      </div>
-
-      <a
-        class="bot-open"
-        href="${bot.url}"
-        target="_blank"
-        rel="noopener"
-      >
-        OPEN BOT ↗
-      </a>
+    div.innerHTML = `
+        <div class="bot-info">
+            <span class="bot-name">${flagLabel}${bot.name}</span>
+            <span class="bot-user">${bot.username}</span>
+            ${descLine}
+        </div>
+        <span class="bot-status ${bot.status}">${bot.status.toUpperCase()}</span>
     `;
-
-    botGrid.appendChild(card);
-
-  });
-
-
-  /* =========================
-     YEAR
-  ========================= */
-
-  document.getElementById("year").textContent =
-    new Date().getFullYear();
-
-
-  /* =========================
-     MUSIC AUTOPLAY
-  ========================= */
-
-  const audio = document.getElementById("themeSong");
-
-  audio.src = CONFIG.themeSong;
-  audio.loop = true;
-  audio.volume = 0.35;
-
-  let musicStarted = false;
-
-  async function startMusic() {
-
-    if (musicStarted) return;
-
-    try {
-
-      await audio.play();
-
-      musicStarted = true;
-
-    } catch (error) {
-
-      /*
-        Browser autoplay policy may block
-        audible autoplay.
-
-        We retry on first user interaction.
-      */
-
-    }
-
-  }
-
-  startMusic();
-
-  [
-    "click",
-    "touchstart",
-    "keydown",
-    "pointerdown"
-  ].forEach(eventName => {
-
-    window.addEventListener(
-      eventName,
-      startMusic,
-      {
-        once: true,
-        passive: true
-      }
-    );
-
-  });
-
-
-  /* =========================
-     CLI
-  ========================= */
-
-  const terminalInput =
-    document.getElementById("terminalInput");
-
-  const terminalOutput =
-    document.getElementById("terminalOutput");
-
-  const runCommand =
-    document.getElementById("runCommand");
-
-  const clearTerminal =
-    document.getElementById("clearTerminal");
-
-
-  function printCommand(command) {
-
-    const line = document.createElement("div");
-
-    line.className = "cmd";
-
-    line.textContent =
-      `root@geto:~$ ${command}`;
-
-    terminalOutput.appendChild(line);
-
-  }
-
-
-  function printAnswer(answer) {
-
-    const line = document.createElement("div");
-
-    line.className = "answer";
-
-    line.innerHTML = answer;
-
-    terminalOutput.appendChild(line);
-
-  }
-
-
-  function runCLI() {
-
-    const command =
-      terminalInput.value.trim().toLowerCase();
-
-    if (!command) return;
-
-    printCommand(command);
-
-    terminalInput.value = "";
-
-
-    if (command === "help") {
-
-      printAnswer(`
-        Available commands:<br>
-        • bots — show bot fleet<br>
-        • sudo — sudo group<br>
-        • telegram — open Telegram<br>
-        • instagram — open Instagram<br>
-        • community — main community<br>
-        • status — system status<br>
-        • clear — clear terminal
-      `);
-
-    }
-
-    else if (command === "bots") {
-
-      const list = bots
-        .map(
-          (bot, i) =>
-            `${i + 1}. ${escapeHTML(bot.name)} — ${bot.status.toUpperCase()}`
-        )
-        .join("<br>");
-
-      printAnswer(list);
-
-    }
-
-    else if (command === "sudo") {
-
-      printAnswer(
-        `SUDO GROUP → <a href="${CONFIG.sudoGroup}" target="_blank">OPEN GROUP ↗</a>`
-      );
-
-    }
-
-    else if (command === "telegram") {
-
-      printAnswer(
-        `TELEGRAM → <a href="${CONFIG.telegram}" target="_blank">OPEN PROFILE ↗</a>`
-      );
-
-    }
-
-    else if (command === "instagram") {
-
-      printAnswer(
-        `INSTAGRAM → <a href="${CONFIG.instagram}" target="_blank">OPEN PROFILE ↗</a>`
-      );
-
-    }
-
-    else if (command === "community") {
-
-      printAnswer(
-        `COMMUNITY → <a href="${CONFIG.mainCommunity}" target="_blank">JOIN ↗</a>`
-      );
-
-    }
-
-    else if (command === "status") {
-
-      printAnswer(
-        "GETO CORE: <span style='color:#00ff9d'>ONLINE</span><br>" +
-        `BOT UNITS: ${bots.length}<br>` +
-        `ACTIVE: ${active}`
-      );
-
-    }
-
-    else if (command === "clear") {
-
-      terminalOutput.innerHTML = "";
-
-    }
-
-    else {
-
-      printAnswer(
-        `Command not found: <b>${escapeHTML(command)}</b><br>` +
-        `Type <b>help</b> to see available commands.`
-      );
-
-    }
-
-    terminalOutput.scrollTop =
-      terminalOutput.scrollHeight;
-
-  }
-
-
-  runCommand.addEventListener(
-    "click",
-    runCLI
-  );
-
-
-  terminalInput.addEventListener(
-    "keydown",
-    event => {
-
-      if (event.key === "Enter") {
-        runCLI();
-      }
-
-    }
-  );
-
-
-  clearTerminal.addEventListener(
-    "click",
-    () => {
-
-      terminalOutput.innerHTML = "";
-
-    }
-  );
-
-
-  /* =========================
-     COPY BUTTON
-  ========================= */
-
-  document.querySelectorAll(".copy-btn")
-    .forEach(button => {
-
-      button.addEventListener("click", async () => {
-
-        const text =
-          button.dataset.copy;
-
-        try {
-
-          await navigator.clipboard.writeText(text);
-
-          const oldText =
-            button.textContent;
-
-          button.textContent = "COPIED ✓";
-
-          setTimeout(() => {
-            button.textContent = oldText;
-          }, 1500);
-
-        } catch {
-
-          button.textContent = "COPY FAILED";
-
-        }
-
-      });
-
-    });
-
-
-  /* =========================
-     SUDO REQUEST
-  ========================= */
-
-  const sudoForm =
-    document.getElementById("sudoForm");
-
-  const sudoMessage =
-    document.getElementById("sudoMessage");
-
-
-  sudoForm.addEventListener(
-    "submit",
-    async event => {
-
-      event.preventDefault();
-
-      const name =
-        document.getElementById("sudoName")
-          .value
-          .trim();
-
-      const username =
-        document.getElementById("sudoUsername")
-          .value
-          .trim();
-
-      const reason =
-        document.getElementById("sudoReason")
-          .value
-          .trim();
-
-      const website =
-        document.getElementById("website")
-          .value
-          .trim();
-
-
-      sudoMessage.textContent =
-        "TRANSMITTING REQUEST...";
-
-
-      try {
-
-        const response =
-          await fetch(
-            CONFIG.sudoApi,
-            {
-              method: "POST",
-
-              headers: {
-                "Content-Type":
-                  "application/json"
-              },
-
-              body: JSON.stringify({
-                name,
-                username,
-                reason,
-                website
-              })
-            }
-          );
-
-
-        const data =
-          await response.json();
-
-
-        if (!response.ok) {
-          throw new Error(
-            data.error ||
-            "Request failed"
-          );
-        }
-
-
-        sudoMessage.textContent =
-          "✓ REQUEST SENT SUCCESSFULLY.";
-
-        sudoForm.reset();
-
-
-      } catch (error) {
-
-        sudoMessage.textContent =
-          "✕ " +
-          (error.message ||
-            "Unable to send request.");
-
-      }
-
-    }
-  );
-
-
-  /* =========================
-     ESCAPE HTML
-  ========================= */
-
-  function escapeHTML(value) {
-
-    return String(value)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-
-  }
-
+    botsList.appendChild(div);
 });
+
+document.getElementById('totalBots').textContent = CONFIG.bots.length;
+document.getElementById('activeCount').textContent = active;
+
+// ===== TERMINAL =====
+const termBody = document.getElementById('termBody');
+const termInput = document.getElementById('termInput');
+
+function addLine(text, cls = 'term-out') {
+    const p = document.createElement('p');
+    p.className = cls;
+    p.innerHTML = text;
+    termBody.appendChild(p);
+    termBody.scrollTop = termBody.scrollHeight;
+}
+
+termInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        const cmd = termInput.value.trim().toLowerCase();
+        if (!cmd) return;
+
+        addLine(`<span style="color:#00ff9d">root@geto:~#</span> ${cmd}`, 'term-info');
+        termInput.value = '';
+
+        switch (cmd) {
+            case 'help':
+                addLine('Available commands:');
+                addLine('&nbsp;&nbsp;<span class="cyan">bots</span> - List all bots');
+                addLine('&nbsp;&nbsp;<span class="cyan">sudo</span> - Sudo group link');
+                addLine('&nbsp;&nbsp;<span class="cyan">support</span> - Community link');
+                addLine('&nbsp;&nbsp;<span class="cyan">insta</span> - Instagram handle');
+                addLine('&nbsp;&nbsp;<span class="cyan">tg</span> - Telegram username');
+                addLine('&nbsp;&nbsp;<span class="cyan">stats</span> - Bot statistics');
+                addLine('&nbsp;&nbsp;<span class="cyan">clear</span> - Clear terminal');
+                break;
+            case 'bots':
+                addLine(`Total bots: ${CONFIG.bots.length} | Active: ${active}`);
+                CONFIG.bots.forEach((b, i) => {
+                    addLine(`&nbsp;&nbsp;[${i + 1}] <span class="cyan">${b.username}</span> - ${b.status.toUpperCase()}`);
+                });
+                break;
+            case 'sudo':
+                addLine(`Sudo Group → <a href="${CONFIG.sudoGroup}" target="_blank" style="color:#00e5ff">${CONFIG.sudoGroup}</a>`);
+                break;
+            case 'support':
+            case 'community':
+                addLine(`Community → <a href="${CONFIG.community}" target="_blank" style="color:#00e5ff">${CONFIG.community}</a>`);
+                break;
+            case 'insta':
+            case 'instagram':
+                addLine(`Instagram → <a href="${CONFIG.instagram}" target="_blank" style="color:#00e5ff">${CONFIG.instagramHandle}</a>`);
+                break;
+            case 'tg':
+            case 'telegram':
+                addLine(`Telegram → <a href="${CONFIG.telegram}" target="_blank" style="color:#00e5ff">${CONFIG.telegramUsername}</a>`);
+                break;
+            case 'stats':
+                addLine(`Total: ${CONFIG.bots.length} | Active: ${active} | Deactive: ${deactive}`);
+                addLine(`Engine: TELETHON | Uptime: 99.9%`);
+                break;
+            case 'clear':
+                termBody.innerHTML = '';
+                addLine('Terminal cleared.');
+                break;
+            case 'whoami':
+                addLine(`You are talking to ${CONFIG.name} — Telegram Bot Fleet Master`);
+                break;
+            default:
+                addLine(`Command not found: ${cmd}. Type <span class="cyan">help</span>`, 'term-err');
+        }
+    }
+});
+
+// ===== THEME SONG =====
+const audio = document.getElementById('themeSong');
+const musicBtn = document.getElementById('musicToggle');
+audio.src = CONFIG.themeSong;
+
+musicBtn.addEventListener('click', () => {
+    if (audio.paused) {
+        audio.play();
+        musicBtn.classList.add('playing');
+        musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    } else {
+        audio.pause();
+        musicBtn.classList.remove('playing');
+        musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+    }
+});
+
+if (CONFIG.autoPlaySong) {
+    document.body.addEventListener('click', () => {
+        if (audio.paused && !musicBtn.classList.contains('playing')) {
+            audio.play().then(() => {
+                musicBtn.classList.add('playing');
+                musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            }).catch(() => {});
+        }
+    }, { once: true });
+}
+
+// ===== MATRIX RAIN EFFECT =====
+const canvas = document.getElementById('matrixCanvas');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const chars = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎ0123456789ABCDEF';
+const fontSize = 14;
+let columns = Math.floor(canvas.width / fontSize);
+let drops = Array(columns).fill(1);
+
+window.addEventListener('resize', () => {
+    columns = Math.floor(canvas.width / fontSize);
+    drops = Array(columns).fill(1);
+});
+
+function drawMatrix() {
+    ctx.fillStyle = 'rgba(5, 0, 10, 0.08)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = '#00ff9d';
+    ctx.font = fontSize + 'px monospace';
+
+    for (let i = 0; i < drops.length; i++) {
+        const text = chars.charAt(Math.floor(Math.random() * chars.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+        }
+        drops[i]++;
+    }
+}
+setInterval(drawMatrix, 50);
