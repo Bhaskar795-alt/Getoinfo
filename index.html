@@ -1,361 +1,537 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="theme-color" content="#08000f">
-    <meta name="description" content="GETO • Official Profile">
+  <title>GETO // CONTROL HUB</title>
+  <meta name="description" content="GETO Telegram Control Hub">
 
-    <title>GETO • Official</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 
-    <div class="bg-orb orb-1"></div>
-    <div class="bg-orb orb-2"></div>
-    <div class="bg-orb orb-3"></div>
+  <div class="scanlines"></div>
+  <div class="noise"></div>
 
-    <!-- Music -->
-    <audio id="themeSong" loop preload="auto" playsinline></audio>
+  <div class="page">
 
-    <button id="musicButton" class="music-button" type="button">
-        <span id="musicIcon">♫</span>
-        <span id="musicText">Music</span>
-    </button>
+    <!-- NAVBAR -->
+    <header class="navbar">
+      <a href="#home" class="brand">
+        <span class="brand-symbol">G</span>
+        <span>
+          <strong>GETO</strong>
+          <small>// CONTROL HUB</small>
+        </span>
+      </a>
+
+      <nav>
+        <a href="#home">HOME</a>
+        <a href="#matrix">MATRIX</a>
+        <a href="#bots">BOTS</a>
+        <a href="#about">OPERATOR</a>
+        <a href="#terminal">CLI</a>
+        <a href="#contact">CONTACT</a>
+      </nav>
+
+      <div class="nav-status">
+        <span class="pulse"></span>
+        ONLINE
+      </div>
+    </header>
 
 
-    <main class="container">
+    <!-- HERO -->
+    <main id="home">
 
-        <!-- PROFILE -->
-        <section class="profile-card">
+      <section class="hero">
 
-            <div class="avatar-wrapper">
+        <div class="hero-copy">
 
-                <div class="avatar-ring">
+          <div class="eyebrow">
+            <span class="green-dot"></span>
+            SYSTEM ONLINE // VERIFIED OPERATOR
+          </div>
 
-                    <img
-                        id="profileImage"
-                        src=""
-                        alt="GETO"
-                    >
+          <h1>
+            <span>ᯓ꯭𓆰꯭𝅃꯭𝐆𝐄𝐓𝐎</span>
+          </h1>
 
-                </div>
+          <div class="hero-title">
+            SUDO // ONLINE
+          </div>
 
-                <span class="online-dot"></span>
+          <p class="hero-description">
+            Welcome to the personal control hub of GETO.
+            Telegram network, bot fleet, social links and secure
+            sudo dispatch — all in one cyber interface.
+          </p>
 
+          <div class="hero-buttons">
+            <a class="btn primary" href="#bots">
+              EXPLORE BOT FLEET
+            </a>
+
+            <a class="btn secondary" href="https://t.me/ll_DARK_GETO_ll" target="_blank">
+              TELEGRAM PROFILE
+            </a>
+          </div>
+
+          <div class="mini-info">
+            <div>
+              <span>OPERATOR</span>
+              <strong>GETO</strong>
             </div>
 
-
-            <div class="profile-content">
-
-                <div class="status-badge">
-                    <span></span>
-                    <span id="profileStatus">ONLINE</span>
-                </div>
-
-                <h1 id="profileName">GETO</h1>
-
-                <div class="username">
-                    @<span id="profileUsername"></span>
-                </div>
-
-                <div id="profileBio" class="bio"></div>
-
-
-                <div class="socials">
-
-                    <a
-                        id="instagramLink"
-                        class="social"
-                        href="#"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        ◎
-                    </a>
-
-                    <a
-                        id="telegramLink"
-                        class="social"
-                        href="#"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        ➤
-                    </a>
-
-                    <a
-                        id="communityLink"
-                        class="social"
-                        href="#"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        ♟
-                    </a>
-
-                </div>
-
+            <div>
+              <span>TELEGRAM</span>
+              <strong>@ll_DARK_GETO_ll</strong>
             </div>
 
-        </section>
+            <div>
+              <span>INSTAGRAM</span>
+              <strong>MIYAMURA_KUN07</strong>
+            </div>
+          </div>
+
+        </div>
 
 
-        <!-- IMPORTANT LINKS -->
-        <section class="section">
+        <!-- PROFILE TERMINAL -->
+        <div class="hero-terminal">
 
-            <div class="section-title">
-                <span>⚡</span>
-                <h2>Important Links</h2>
+          <div class="terminal-top">
+            <span class="terminal-light red"></span>
+            <span class="terminal-light yellow"></span>
+            <span class="terminal-light green"></span>
+
+            <span class="terminal-name">
+              GETO-CORE // AUTHENTICATED
+            </span>
+          </div>
+
+          <div class="terminal-body">
+
+            <div class="profile-orb">
+              <div class="orb-ring"></div>
+              <img
+                src="https://i.ibb.co/7xvx3Jdz/IMG-20260928-000955-270.jpg"
+                alt="GETO profile"
+              >
+              <span class="orb-status"></span>
             </div>
 
-
-            <div class="links-grid">
-
-                <a
-                    id="communityCard"
-                    class="link-card"
-                    href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <div class="link-icon">👥</div>
-
-                    <div>
-                        <strong>Main Community</strong>
-                        <small>Join the community</small>
-                    </div>
-
-                    <span class="arrow">→</span>
-                </a>
-
-
-                <a
-                    id="sudoGroupCard"
-                    class="link-card"
-                    href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <div class="link-icon">🛡️</div>
-
-                    <div>
-                        <strong>Sudo Group</strong>
-                        <small>Official sudo group</small>
-                    </div>
-
-                    <span class="arrow">→</span>
-                </a>
-
-
-                <a
-                    id="chatGroupCard"
-                    class="link-card"
-                    href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <div class="link-icon">💬</div>
-
-                    <div>
-                        <strong>Chatting Group</strong>
-                        <small>Come and chat</small>
-                    </div>
-
-                    <span class="arrow">→</span>
-                </a>
-
-
-                <a
-                    id="fontBotCard"
-                    class="link-card"
-                    href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <div class="link-icon">✍️</div>
-
-                    <div>
-                        <strong>Font Bot</strong>
-                        <small>Change your font</small>
-                    </div>
-
-                    <span class="arrow">→</span>
-                </a>
-
-
-                <a
-                    id="managementBotCard"
-                    class="link-card"
-                    href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <div class="link-icon">🤖</div>
-
-                    <div>
-                        <strong>Management Bot</strong>
-                        <small>Group management</small>
-                    </div>
-
-                    <span class="arrow">→</span>
-                </a>
-
+            <div class="terminal-line">
+              <span>root@geto:~$</span> whoami
             </div>
 
-        </section>
-
-
-        <!-- BOTS -->
-        <section class="section">
-
-            <div class="section-title">
-                <span>🤖</span>
-                <h2>My Bots</h2>
+            <div class="terminal-output">
+              ᯓ꯭𓆰꯭𝅃꯭𝐆𝐄𝐓𝐎 -֟፝…𓆪᭄ꪾ
             </div>
 
-
-            <div class="stats">
-
-                <div class="stat-card">
-                    <span id="totalBots" class="stat-number">0</span>
-                    <span class="stat-label">TOTAL</span>
-                </div>
-
-                <div class="stat-card active-stat">
-                    <span id="activeBots" class="stat-number">0</span>
-                    <span class="stat-label">ACTIVE</span>
-                </div>
-
-                <div class="stat-card inactive-stat">
-                    <span id="inactiveBots" class="stat-number">0</span>
-                    <span class="stat-label">INACTIVE</span>
-                </div>
-
+            <div class="terminal-line">
+              <span>root@geto:~$</span> status
             </div>
 
-
-            <div id="botList" class="bot-list"></div>
-
-        </section>
-
-
-        <!-- SUDO -->
-        <section class="section">
-
-            <div class="section-title">
-                <span>👑</span>
-                <h2>Request Sudo</h2>
+            <div class="terminal-output success">
+              ● SYSTEM ONLINE
             </div>
 
-
-            <div class="form-card">
-
-                <p class="form-description">
-                    Want sudo access? Fill out the form.
-                    Your request will be sent directly to GETO.
-                </p>
-
-
-                <form id="sudoForm">
-
-                    <!-- Anti-spam honeypot -->
-                    <input
-                        id="website"
-                        name="website"
-                        type="text"
-                        autocomplete="off"
-                        tabindex="-1"
-                        class="honeypot"
-                    >
-
-
-                    <label for="requestName">
-                        Name
-                    </label>
-
-                    <input
-                        id="requestName"
-                        name="name"
-                        type="text"
-                        maxlength="80"
-                        placeholder="Your name"
-                        required
-                    >
-
-
-                    <label for="requestUsername">
-                        Telegram Username
-                    </label>
-
-                    <input
-                        id="requestUsername"
-                        name="username"
-                        type="text"
-                        maxlength="64"
-                        placeholder="@yourusername"
-                        required
-                    >
-
-
-                    <label for="requestReason">
-                        Why should you get sudo?
-                    </label>
-
-                    <textarea
-                        id="requestReason"
-                        name="reason"
-                        maxlength="500"
-                        rows="5"
-                        placeholder="Tell me something about yourself..."
-                        required
-                    ></textarea>
-
-
-                    <button
-                        id="sudoSubmit"
-                        class="submit-button"
-                        type="submit"
-                    >
-                        <span>Send Sudo Request</span>
-                        <span>➤</span>
-                    </button>
-
-
-                    <div
-                        id="formMessage"
-                        class="form-message"
-                    ></div>
-
-                </form>
-
+            <div class="terminal-line">
+              <span>root@geto:~$</span> identity
             </div>
 
-        </section>
+            <div class="terminal-output">
+              ll_DARK_GETO_ll
+            </div>
+
+          </div>
+        </div>
+
+      </section>
 
 
-        <footer>
+      <!-- STATS -->
+      <section class="stats-grid" id="matrix">
 
-            <div id="footerName" class="footer-name"></div>
+        <div class="stat-card">
+          <span class="stat-label">TOTAL BOTS</span>
+          <strong id="totalBots">10</strong>
+          <small>REGISTERED UNITS</small>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-label">ACTIVE</span>
+          <strong id="activeBots">10</strong>
+          <small>ONLINE UNITS</small>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-label">ENGINE</span>
+          <strong>GETO</strong>
+          <small>CONTROL CORE</small>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-label">STATUS</span>
+          <strong class="green-text">ONLINE</strong>
+          <small>ALL SYSTEMS NOMINAL</small>
+        </div>
+
+      </section>
+
+
+      <!-- LINKS -->
+      <section class="section">
+
+        <div class="section-heading">
+          <span>// VERIFIED LINKS</span>
+          <h2>COMMAND MATRIX</h2>
+        </div>
+
+        <div class="link-grid">
+
+          <a href="https://t.me/ll_DARK_GETO_ll" target="_blank" class="link-card">
+            <span class="link-icon">◉</span>
+            <div>
+              <strong>Telegram Profile</strong>
+              <small>@ll_DARK_GETO_ll</small>
+            </div>
+            <b>↗</b>
+          </a>
+
+          <a href="https://www.instagram.com/miyamura_kun07?stkn=azUxZWR1bHlqd3J5"
+             target="_blank"
+             class="link-card">
+            <span class="link-icon">◎</span>
+            <div>
+              <strong>Instagram</strong>
+              <small>@miyamura_kun07</small>
+            </div>
+            <b>↗</b>
+          </a>
+
+          <a href="https://t.me/+6q5QlKh32L9hNGI1"
+             target="_blank"
+             class="link-card">
+            <span class="link-icon">👥</span>
+            <div>
+              <strong>Main Community</strong>
+              <small>Join the community</small>
+            </div>
+            <b>↗</b>
+          </a>
+
+          <a href="https://t.me/+orqD_xZvi5NlYzll"
+             target="_blank"
+             class="link-card">
+            <span class="link-icon">🛡</span>
+            <div>
+              <strong>Sudo Group</strong>
+              <small>Official sudo group</small>
+            </div>
+            <b>↗</b>
+          </a>
+
+          <a href="https://t.me/+hp2bEQ4WBNBjMWQ1"
+             target="_blank"
+             class="link-card">
+            <span class="link-icon">💬</span>
+            <div>
+              <strong>Chatting Group</strong>
+              <small>Come and chat</small>
+            </div>
+            <b>↗</b>
+          </a>
+
+          <a href="https://t.me/CHANGE_THE_FONT_BOT"
+             target="_blank"
+             class="link-card">
+            <span class="link-icon">✍</span>
+            <div>
+              <strong>Font Bot</strong>
+              <small>Change your font</small>
+            </div>
+            <b>↗</b>
+          </a>
+
+          <a href="https://t.me/ll_SUPRRME_XD_ll_BOT"
+             target="_blank"
+             class="link-card">
+            <span class="link-icon">🤖</span>
+            <div>
+              <strong>Management Bot</strong>
+              <small>Group management</small>
+            </div>
+            <b>↗</b>
+          </a>
+
+        </div>
+
+      </section>
+
+
+      <!-- BOT MATRIX -->
+      <section class="section" id="bots">
+
+        <div class="section-heading">
+          <span>// ARSENAL & TELEGRAM CLUSTER</span>
+          <h2>BOTS FLEET MATRIX</h2>
+        </div>
+
+        <div class="bot-grid" id="botGrid"></div>
+
+      </section>
+
+
+      <!-- ABOUT -->
+      <section class="about-section" id="about">
+
+        <div class="about-terminal">
+
+          <div class="terminal-top">
+            <span class="terminal-light red"></span>
+            <span class="terminal-light yellow"></span>
+            <span class="terminal-light green"></span>
+            <span class="terminal-name">GETO-ROOT // PROFILE</span>
+          </div>
+
+          <div class="about-content">
+
+            <div class="about-label">
+              // ROOT OPERATOR SPECIFICATIONS
+            </div>
+
+            <h2>ABOUT GETO</h2>
+
+            <h3>
+              SUDO ROOT // TELEGRAM ARCHITECT
+            </h3>
 
             <p>
-                Made with ⚡ by GETO
+              #𝐃ᴏɴᴛ_𝐖ᴏʀʀʏ_𝐖ᴇ_𝐀ʀᴇ_𝐓ʜᴇ_𝐒ᴛʀᴏɴɢᴇsᴛ_
             </p>
 
-            <p class="copyright">
-                © <span id="year"></span> GETO
+            <p>
+              #𝐃𝛆𝖋𝛂υℓ𝛕𝛆ɤ𝛅_𝛅𝛂ɤ𝛋𝛂ɤ
             </p>
 
-        </footer>
+            <div class="spec-grid">
+
+              <div>
+                <span>USERNAME</span>
+                <strong>ll_DARK_GETO_ll</strong>
+              </div>
+
+              <div>
+                <span>STATUS</span>
+                <strong class="green-text">● ONLINE</strong>
+              </div>
+
+              <div>
+                <span>BOT FLEET</span>
+                <strong>10 UNITS</strong>
+              </div>
+
+              <div>
+                <span>ACCESS</span>
+                <strong>SUDO ROOT</strong>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- CLI -->
+      <section class="section" id="terminal">
+
+        <div class="section-heading">
+          <span>// RETRO INTERACTIVE SHELL</span>
+          <h2>GETO-OS BASH CLI</h2>
+        </div>
+
+        <div class="cli">
+
+          <div class="cli-top">
+            <span>root@geto-cluster:~#</span>
+            <button id="clearTerminal">CLEAR</button>
+          </div>
+
+          <div id="terminalOutput" class="cli-output">
+            <div>GETO CYBER MATRIX CORE [ONLINE v1.0]</div>
+            <div>Type <b>help</b> to see available commands.</div>
+          </div>
+
+          <div class="cli-input-row">
+            <span>root@geto:~$</span>
+
+            <input
+              id="terminalInput"
+              type="text"
+              placeholder="type 'bots' or 'help'..."
+              autocomplete="off"
+            >
+
+            <button id="runCommand">RUN</button>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- CONTACT -->
+      <section class="section" id="contact">
+
+        <div class="section-heading">
+          <span>// COMMS MATRIX</span>
+          <h2>DIRECT CONTACT</h2>
+        </div>
+
+        <div class="contact-grid">
+
+          <div class="contact-card">
+            <span>TELEGRAM USERNAME</span>
+            <strong>@ll_DARK_GETO_ll</strong>
+            <button class="copy-btn" data-copy="@ll_DARK_GETO_ll">
+              COPY
+            </button>
+          </div>
+
+          <div class="contact-card">
+            <span>INSTAGRAM</span>
+            <strong>@miyamura_kun07</strong>
+            <a href="https://www.instagram.com/miyamura_kun07?stkn=azUxZWR1bHlqd3J5"
+               target="_blank">
+              VISIT
+            </a>
+          </div>
+
+          <div class="contact-card">
+            <span>MAIN COMMUNITY</span>
+            <strong>Telegram Community</strong>
+            <a href="https://t.me/+6q5QlKh32L9hNGI1"
+               target="_blank">
+              JOIN
+            </a>
+          </div>
+
+          <div class="contact-card">
+            <span>SUDO GROUP</span>
+            <strong>Official Sudo Group</strong>
+            <a href="https://t.me/+orqD_xZvi5NlYzll"
+               target="_blank">
+              OPEN
+            </a>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- SUDO REQUEST -->
+      <section class="section">
+
+        <div class="section-heading">
+          <span>// SECURE DISPATCH</span>
+          <h2>SUDO REQUEST</h2>
+        </div>
+
+        <div class="sudo-box">
+
+          <p>
+            Send a sudo access request directly to the GETO operator.
+          </p>
+
+          <form id="sudoForm">
+
+            <input
+              type="text"
+              id="sudoName"
+              placeholder="Your name"
+              required
+              maxlength="60"
+            >
+
+            <input
+              type="text"
+              id="sudoUsername"
+              placeholder="@telegram_username"
+              required
+              maxlength="80"
+            >
+
+            <textarea
+              id="sudoReason"
+              placeholder="Why do you need sudo access?"
+              required
+              maxlength="500"
+            ></textarea>
+
+            <!-- HONEYPOT -->
+            <input
+              type="text"
+              id="website"
+              tabindex="-1"
+              autocomplete="off"
+              class="honeypot"
+            >
+
+            <button type="submit" class="dispatch-btn">
+              SEND SUDO REQUEST
+            </button>
+
+            <div id="sudoMessage"></div>
+
+          </form>
+
+        </div>
+
+      </section>
 
     </main>
 
 
-    <script src="config.js"></script>
-    <script src="script.js"></script>
+    <!-- FOOTER -->
+    <footer>
+
+      <div>
+        <strong>GETO // CONTROL HUB</strong>
+        <span>SECURE TELEGRAM MATRIX</span>
+      </div>
+
+      <div>
+        © <span id="year"></span> GETO
+      </div>
+
+    </footer>
+
+  </div>
+
+
+  <!-- NO MUSIC BUTTON -->
+  <audio
+    id="themeSong"
+    loop
+    preload="auto"
+    playsinline>
+  </audio>
+
+
+  <script src="./config.js"></script>
+  <script src="./script.js"></script>
 
 </body>
-  </html>
+</html>
